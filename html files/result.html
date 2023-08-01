@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <title> Product Information </title>
+    <meta charset="UTF-8">
+    <script>
+	
+	
+      var baseurl = "http://localhost:9191";
+      function loadPersons(id){
+	  
+	     var ids = id;
+         var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET",baseurl + "/findproductid/" + ids ,true);
+        xmlhttp.onreadystatechange = function() {
+          if(xmlhttp.readyState ===4 && xmlhttp.status ===200){
+            var persons = JSON.parse(xmlhttp.responseText);
+            var tbltop = `<table border=1 align='center' padding=50px >
+			    <tr><th>Id</th><th>Product Name</th><th>Price</th><th>Quantity</th></tr>`;
+            //main table content we fill from data from the rest call
+            var main ="";
+			
+              main += "<tr><td>"+persons.id+"</td><td>"+persons.name+"</td><td>"+persons.price+"</td><td>"+persons.qty+"</td></tr>";
+
+            var tblbottom = "</table>";
+            var tbl = tbltop + main + tblbottom;
+            document.getElementById("personinfo").innerHTML = tbl;
+          }
+        };
+        xmlhttp.send();
+      }
+      window.onload = function(){
+	  var x = localStorage.getItem("id");
+	var id = parseInt(x);
+        loadPersons(id);
+      }
+    </script>
+  </head>
+  <body>
+  <h1 align='center'> Search Poducts In The Database</h1>
+  
+  <form id="form">
+     ID: <input type="number" name="a" id="a">
+       <button type="submit">Search </button>
+    </form>
+<h1 align='center'> Result In The Database</h1>
+    <div id="personinfo"> </div>
+	
+	  <script>
+  
+const form = document.getElementById('form');
+const id = document.getElementById("a");
+
+    form.addEventListener('submit', function(e) { 
+          
+		  e.preventDefault();
+		  
+    const idvalue =id.value; 
+
+   localStorage.setItem("id",idvalue);
+   
+   window.location.href="result.html";
+})
+  </body>
+</html>
