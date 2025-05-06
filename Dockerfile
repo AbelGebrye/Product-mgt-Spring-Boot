@@ -4,6 +4,9 @@ FROM maven:3.8.4-openjdk-17-slim as build
 # Set the working directory to /app
 WORKDIR /app
 
+# Set JVM memory options
+ENV JAVA_OPTS="-Xmx2g -Xms1g"
+
 # Copy the pom.xml and download dependencies to cache them
 COPY pom.xml ./
 RUN mvn dependency:go-offline
