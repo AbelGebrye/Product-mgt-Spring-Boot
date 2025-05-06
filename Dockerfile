@@ -21,6 +21,8 @@ FROM openjdk:17-jdk-alpine
 # Set working directory
 WORKDIR /app
 
+RUN mvn clean install
+
 # Copy the JAR file from the build stage
 COPY --from=build /app/target/thymeleafdemo-0.0.1-SNAPSHOT.jar app.jar
 
