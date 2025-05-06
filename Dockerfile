@@ -24,7 +24,7 @@ WORKDIR /app
 COPY --from=build /app/target/spring-boot-crud-example-2-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port Spring Boot app will run on
-EXPOSE 8080
+EXPOSE 80
 
 # Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
